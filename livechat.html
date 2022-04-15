@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<style> html, body, textarea {width:100%;height:100%;padding:0;margin:0}</style>
+
+<textarea placeholder="paste some text here!"></textarea>
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+
+<div id="relay_server" hidden="true">{{ site.relay_server }}</div>
+
+<script>
+
+var gun = Gun([$("#relay_server")[0].innerHTML]);
+
+$('textarea').on('input change blur keyup mouseup touchend', function(){
+    gun.get('chat').get('message').put($('textarea').val())});
+
+gun.get('chat').get('message').on(data => $('textarea').val(data));
+    
+</script>

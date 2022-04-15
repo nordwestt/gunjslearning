@@ -10,8 +10,10 @@
 <div id="relay_server" hidden="true">{{ site.relay_server }}</div>
 
 <script>
+localStorage.clear();
+var flagger = "insert address";
 
-var gun = Gun([$("#relay_server")[0].innerHTML]);
+var gun = Gun(flagger);
 
 $('textarea').on('input change blur keyup mouseup touchend', function(){
     gun.get('chat').get('message').put($('textarea').val())});
